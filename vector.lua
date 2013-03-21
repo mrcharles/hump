@@ -1,5 +1,5 @@
 --[[
-Copyright (c) 2010-2012 Matthias Richter
+Copyright (c) 2010-2013 Matthias Richter
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -121,12 +121,14 @@ end
 
 function vector:normalize_inplace()
 	local l = self:len()
-	self.x, self.y = self.x / l, self.y / l
+	if l > 0 then
+		self.x, self.y = self.x / l, self.y / l
+	end
 	return self
 end
 
 function vector:normalized()
-	return self / self:len()
+	return self:clone():normalize_inplace()
 end
 
 function vector:rotate_inplace(phi)
